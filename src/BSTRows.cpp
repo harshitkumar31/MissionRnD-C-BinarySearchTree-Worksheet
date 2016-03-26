@@ -30,8 +30,77 @@ struct node{
 };
 
 
+int get_height1(struct node *root){
+
+	if (root == 0)
+		return 0;
+
+	if (root->left == 0 && root->right == 0)
+		return 1;
+
+	int l = get_height1(root->left);
+	int r = get_height1(root->right);
+
+	return l > r ? l + 1 : r + 1;
+
+
+	}
+
+
+void getToArray(struct node* root, int *arr, int *index, int level){
+
+	if (root == NULL)
+		return;
+
+	if (level == 0)
+		{
+		arr[*index] = root->data;
+		*index = *index + 1;
+		}
+
+	if (level){
+
+		getToArray(root->right, arr, index, level - 1);
+		getToArray(root->left, arr, index, level - 1);
+		}
+
+	}
+
+void BSTRighttoLeft_helper(struct node* root, int *arr, int *index){
+
+	int height = get_height1(root);
+
+	int i;
+	for (i = 0; i < height; i++)
+		getToArray(root, arr, index, i);
+
+	}
+
+
+int pow(int num, int power){
+
+	int i = 0,ans=1;
+
+	for (i = 0; i < power; i++)
+		ans = ans * num;
+
+	return ans;
+	}
 
 int* BSTRighttoLeftRows(struct node* root)
 {
-    return NULL;
+
+	if (root==NULL)
+		return NULL;
+
+	int height = get_height1(root);
+
+	int ind = 0;
+	int *resArray = (int*)malloc(pow(2,height)*sizeof(int));
+
+	resArray[0] = root->data;
+
+	BSTRighttoLeft_helper(root, resArray, &ind);
+
+	return resArray;
 }

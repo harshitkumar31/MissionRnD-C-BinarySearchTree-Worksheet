@@ -23,13 +23,76 @@ struct node{
 };
 
 
+void inorder_helper(struct node *root, int *arr, int *ind){
+
+	if (root == NULL)
+		return;
+
+
+	inorder_helper(root->left, arr,ind);
+	arr[*ind] = root->data;
+	*ind = *ind + 1;
+	inorder_helper(root->right, arr,ind);
+
+
+	}
+
 void inorder(struct node *root, int *arr){
+
+
+	if (arr == NULL)
+		return;
+	int ind=0;
+
+	inorder_helper(root, arr, &ind);
 	
 }
+
+void preorder_helper(struct node *root, int *arr,int *ind){
+	
+	if (root == NULL)
+		return;
+
+	arr[*ind] = root->data;
+	*ind = *ind + 1;
+	preorder_helper(root->left, arr,ind);
+	preorder_helper(root->right, arr,ind);
+
+
+	}
+
 void preorder(struct node *root, int *arr){
 	
-}
-void postorder(struct node *root, int *arr){
+
+	if (arr == NULL)
+		return;
+	int ind = 0;
+
+	preorder_helper(root, arr, &ind);
+
+	}
+
+void postorder_helper(struct node *root, int *arr,int *ind){
 	
+
+	if (root == NULL)
+		return;
+
+	postorder_helper(root->left, arr,ind);
+	postorder_helper(root->right, arr,ind);
+	arr[*ind] = root->data;
+	*ind = *ind + 1;
+
+
+	}
+
+
+void postorder(struct node *root, int *arr){
+
+	if (arr == NULL)
+		return;
+
+	int ind = 0;
+	postorder_helper(root, arr, &ind);
 }
 
