@@ -60,13 +60,14 @@ int get_height(struct node *root){
 int get_treesum(struct node* root){
 	
 
-	if (root == 0)
+	if (root == NULL)
 		return 0;
 
-	if (root->left == 0 && root->right == 0)
+	if (root->left == NULL && root->right == NULL)
 		return root->data;
+	
 
-	return get_treesum(root->left) + get_treesum(root->right);
+	return root->data + get_treesum(root->left) + get_treesum(root->right);
 
 	}
 
