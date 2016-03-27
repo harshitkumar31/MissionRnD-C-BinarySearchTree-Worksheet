@@ -47,49 +47,56 @@ void fix_bst(struct node *root){
 	if (root==NULL)
 		return;
 
-	struct node *cur, *pre, *node1 , *node2 ;
+	struct node *curr, *prev, *node1 , *node2 ;
 	struct node *first, *second ;
 
 	node1 = node2 = first = second = NULL;
-	cur = root;
-	while (cur)
+	curr = root;
+	while (curr)
 		{
-		if (cur->left == NULL)
+		if (curr->left == NULL)
 			{
-			if (node1 == NULL) node1 = cur;
-			else if (node2 == NULL) node2 = cur;
+			if (node1 == NULL)
+				node1 = curr;
+			else if (node2 == NULL) 
+				node2 = curr;
 			else
 				{
 				node1 = node2;
-				node2 = cur;
+				node2 = curr;
 				}
-			cur = cur->right;
+			curr = curr->right;
 			}
 		else
 			{
-			pre = cur->left;
-			while (pre->right && pre->right != cur) pre = pre->right;
-			if (pre->right == NULL)
+			prev = curr->left;
+			while (prev->right && prev->right != curr)
+				prev = prev->right;
+			if (prev->right == NULL)
 				{
-				pre->right = cur;
-				cur = cur->left;
+				prev->right = curr;
+				curr = curr->left;
 				continue;
 				}
 			else
 				{
-				pre->right = NULL;
-				if (node2 == NULL) node2 = cur;
+				prev->right = NULL;
+				if (node2 == NULL) 
+					node2 = curr;
 				else
 					{
 					node1 = node2;
-					node2 = cur;
+					node2 = curr;
 					}
-				cur = cur->right;
+
+				curr = curr->right;
 				}
 			}
 		if (node1 && node2 && node1->data > node2->data)
 			{
-			if (first == NULL)   first = node1;
+			if (first == NULL)   
+				first = node1;
+
 			second = node2;
 			}
 		}
